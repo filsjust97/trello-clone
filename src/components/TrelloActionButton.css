@@ -1,0 +1,35 @@
+.card {
+    overflow: visible;
+    min-height: 80px;
+    min-width: 272px;
+    padding: 6px 8px 2px;
+}
+
+.textarea {
+    resize: none;
+    width: 100%;
+    outline: none;
+    border: none;
+    overflow: hidden;
+}
+
+.addButton {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 3px;
+    height: 36px;
+    width: 272px;
+    padding-left: 10px;
+}
+
+.renderFormIcon {
+    margin-left: 0;
+    cursor: pointer;
+}
+
+.cardControl {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
