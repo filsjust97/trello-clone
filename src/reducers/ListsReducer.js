@@ -1,67 +1,31 @@
 import { CONSTANTS } from "../actions";
 
-let listID = 2;
-let cardID = 4;
-
-const initialState = [
-    {
-        title: "Last Episode",
-        id: 0,
-        cards: [
-            {
-                id: 0,
-                text: "we created a static list and a static card"
-            },
-            {
-                id: 1,
-                text: "we used a mix between material UI"
-            }
-        ]
-    },
-    {
-        title: "This Episode",
-        id: 1,
-        cards: [
-            {
-                id: 0,
-                text: "we created a static list and a static card 201"
-            },
-            {
-                id: 1,
-                text: "we used a mix between material UI 202"
-            },
-            {
-                id: 2,
-                text: "we used a mix between material UI 203"
-            },
-            {
-                id: 3,
-                text: "we used a mix between material UI 203"
-            }
-        ]
-    }
-]
+const initialState = {
+    pending: false,
+    list: []
+}
 const listsReducer = (state = initialState, action) => {
     switch (action.type) {
-
+        case CONSTANTS.FETCH_LISTS_PENDING:
+            return {
+                ...state,
+                pending: true
+            }
         case CONSTANTS.ADD_LIST:
             const newList = {
-                title: action.payload,
+                title: action.payload.title,
                 cards: [],
-                id: listID
+                _id: action.payload._id
             }
-            listID += 1
-            return [...state, newList];
+            return { pending: false, list: [...state.list, newList] };
 
         case CONSTANTS.ADD_CARD:
             const newCard = {
                 text: action.payload.text,
-                id: cardID
+                _id: action.payload._id
             }
-            cardID++;
-
-            const newState = state.map(list => {
-                if (list.id === action.payload.listID) {
+            const newState = state.list.map(list => {
+                if (list._id === action.payload.listID) {
                     return {
                         ...list,
                         cards: [...list.cards, newCard]
@@ -70,12 +34,16 @@ const listsReducer = (state = initialState, action) => {
                     return list;
                 }
             });
+            return { pending: false, list: newState };
 
-            return newState;
+        case CONSTANTS.GET_LIST:
+            return { pending: false, list: action.payload };
 
         default:
             return state;
     }
 }
+/* export const getListRed = state => state.list;
+export const getListPending = state => state.pending; */
 
 export default listsReducer;

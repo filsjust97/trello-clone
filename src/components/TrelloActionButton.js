@@ -5,7 +5,8 @@ import Card from "@material-ui/core/Card";
 import "./TrelloActionButton.css";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-import { addList, addCard } from "../actions";
+import { postCard } from "../actions/cardsActions";
+import { postList } from "../actions/listsActions";
 
 
 class TrelloActionButton extends React.Component {
@@ -34,14 +35,13 @@ class TrelloActionButton extends React.Component {
     }
 
     handleAddList = () => {
-        const { dispatch } = this.props;
         const { text } = this.state;
 
         if (text) {
             this.setState({
                 text: ""
             })
-            dispatch(addList(text));
+            this.props.postList(text);
 
         }
 
@@ -49,14 +49,16 @@ class TrelloActionButton extends React.Component {
     }
 
     handleAddCard = () => {
-        const { dispatch, listID } = this.props;
+        const { listID } = this.props;
+        console.log(this.props);
         const { text } = this.state;
 
         if(text) {
             this.setState({
                 text: ""
             })
-            dispatch(addCard(listID, text))
+            //dispatch(addCard(listID, text))
+            this.props.postCard(listID, text);
         }
     }
 
@@ -111,5 +113,5 @@ class TrelloActionButton extends React.Component {
         return this.state.formOpen ? this.renderForm() : this.renderAddButton();
     };
 }
-
-export default connect()(TrelloActionButton);
+const mapDispatchToProps = { postCard, postList };  
+export default connect(null, mapDispatchToProps)(TrelloActionButton);
