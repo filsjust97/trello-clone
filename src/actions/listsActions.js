@@ -23,21 +23,13 @@ export function fetchListsPending() {
     }
 }
 
-/* export function loadLists(){
-    return dispatch => {
-        return axios.get("http://localhost:1234/lists/").then((response) => {
-            console.log("res", response);
-            dispatch(getList(response.data))
-        })
-    }
-} */
-
-export function loadLists(){
+export function loadLists(id){
     return dispatch => {
         dispatch(fetchListsPending());
-        fetch("http://localhost:1234/lists/")
+        fetch(`http://localhost:1234/lists/fetch_lists_from_project/${id}`)
         .then(res => res.json())
         .then(res => {
+            console.log(res);
             if(res.error) {
                 throw(res.error);
             }
