@@ -5,7 +5,7 @@ import TrelloActionButton from "./TrelloActionButton";
 
 const TrelloList = ({ title, cards, listID }) => {
     return (
-        <div className="container">
+        <div className="list_container">
             <h4>{title}</h4>
             {cards.map(card => (
                 <TrelloCard key={card._id} text={card.text} />

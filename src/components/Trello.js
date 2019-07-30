@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import TrelloList from "./TrelloList";
 import { connect } from "react-redux";
-import "./App.css";
 import { loadLists } from "../actions/listsActions";
 import TrelloActionButton from "./TrelloActionButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import { bindActionCreators } from 'C:/Users/Filipe/AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import "./Trello.css";
 
 class Trello extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.shouldComponentRender = this.shouldComponentRender.bind(this);
     }
 
@@ -35,10 +36,11 @@ class Trello extends Component {
 
     render() {
         const { lists } = this.props;
-        if (this.shouldComponentRender()) return <div>It's fucked</div>
+
+        if (this.shouldComponentRender()) return <div className="wait"><CircularProgress/></div>
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className="App">
+                <div className="Trello">
                     <h2>Hello</h2>
                     <div className="lists">
                         {lists.map(list => (
